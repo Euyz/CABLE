@@ -17,3 +17,4 @@ python main.py CJ4TEST.h5
 
 * If the code in 'main.py' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it manually.  
 * The program will generate a FOD file which can be viewed with 'mrview' in 'Mrtrix3', open the FOD file and use 'ODF Display' in 'Tools' to view the FOD file.  
+![image](https://github.com/Euyz/CABLE/assets/33593212/fc2df123-4574-40ee-b5c6-5b3f2e782cdf)
