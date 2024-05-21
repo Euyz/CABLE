@@ -64,7 +64,7 @@ def main():
     ODF_Data = np.zeros([(nii_roi[1]-nii_roi[0]) // rho,
                       (nii_roi[3]-nii_roi[2]) // rho,
                       (nii_roi[5]-nii_roi[4]) // rho, 46], dtype=np.float32)
-    padded_index, effective_index, ODF_Index= split(img, 1 * rho, [15 * rho, 15 *  rho, 15 * rho],nii_roi)
+    padded_index, effective_index, ODF_Index= split(img, 1 * rho, [10 * rho, 10 *  rho, 10 * rho],nii_roi)
     dataSet = dataLoader.CustomIMSDataset(padded_index, effective_index, ODF_Index,address)
     dataloader = dataLoader.DataLoader(dataSet,batch_size=1,num_workers=10,pin_memory=True)
     k = torch.tensor(cv2.getGaussianKernel(rho//ratio + 1, rho//ratio*10, cv2.CV_32F)[:, 0]).cuda(0)
