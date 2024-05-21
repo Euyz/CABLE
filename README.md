@@ -1,5 +1,9 @@
 ## Code dependencies  
 Code dependencies are in requirement.txt.  
+```sh
+pip install -r requirements.txt
+```
+
 ## Example data and usage.  
 The example data 'CJ4TEST.h5' can be accessed via XXX.
 
