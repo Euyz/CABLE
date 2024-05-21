@@ -16,7 +16,7 @@ python main.py CJ4TEST.h5
 ```
 
 * If the code in 'main.py' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it manually.  
-* The program will generate odf and tck files which can be viewed with 'mrview' in 'Mrtrix3', use 'Tractography' in 'Tools' to view it.
+* The program will generate odf and tck files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' to view them.
 
 ![image ](https://github.com/Euyz/CABLE/assets/33593212/e1d11bad-6171-4077-97b4-680b15ebdd21)
 ![image](https://github.com/Euyz/CABLE/assets/33593212/76fca208-a825-4109-bf2c-1382c2fbb889)
