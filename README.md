@@ -1,10 +1,10 @@
 ## Code dependencies  
 Code dependencies are in requirement.txt.  
 ## Example data and usage.  
-Please modify the variable ‘address’ in the 'mainPY.py' file to the address of the example data(can be accessed via XXX), and use python to execute 'mainPY.py'.  
+The example data 'CJ4TEST.h5' can be accessed via XXX.
 
 ```sh
-python mainPY.py
+python mainPY.py CJ4TEST.h5
 ```
 
 We use 'Mrtrix3' for estimating response function(or use response1.nii in this repository directly) and constrained spherical deconvolution(CSD), which can be accessed via 'https://www.mrtrix.org/download/', if the code in 'mainPY' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it manually.  
