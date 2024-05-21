@@ -100,7 +100,6 @@ def main():
     #os.system(f'dwi2response tax {dwi}  {res}  -grad {dir_file}  -force')
     os.system(f'mrfilter  {dwi} smooth -stdev 0.06,0.06,0.06 {dwi}   -force')
     os.system(f'dwi2fod msmt_csd {dwi} {res} {fod} -grad {dir_file} -lmax 8 -shells 1000 -force')
-    s=1
 
 def makeNiiForMRView(fod_reslotion, out):
     out = nib.Nifti1Image(out, np.eye(4) * fod_reslotion*4/1000)
