@@ -1,5 +1,5 @@
 ## Code dependencies.  
-Code dependencies are in requirement.txt.  
+Code dependencies are in 'requirement.txt'.  
 ```sh
 pip install -r requirements.txt
 ```
