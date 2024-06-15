@@ -93,7 +93,7 @@ def main():
 
     out = makeNiiForMRView(rho, ODF_Data)
     dwi = f'./DWI_sigma_{sigma}_rho_{rho}.nii'
-    res = f'./response1.nii'
+    res = f'./response.nii'
     fod = f'./FOD_sigma_{sigma}_rho_{rho}.nii'
     dir_file = f'./45.txt'
     nib.save(out, dwi)
