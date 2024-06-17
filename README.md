@@ -15,7 +15,7 @@ pip install -r requirements.txt
 python main.py CJ4TEST.h5
 ```
 
-* If the code in 'main.py' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it manually.  
+* If the code in 'main.py' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it in command line manually.  
 * The program will generate odf and tck files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' to view them.
 
 
