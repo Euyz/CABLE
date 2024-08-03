@@ -1,3 +1,6 @@
+# If you find this code useful in your research, consider cite the following paper:
+# Yue Zhang et al. Whole-brain reconstruction of fiber tracts based on the 3-D cytoarchitectonic organization
+
 import os
 import sys
 
