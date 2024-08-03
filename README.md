@@ -15,8 +15,8 @@ pip install -r requirements.txt
 python main.py CJ4TEST.h5
 ```
 
-* If the code in 'main.py' encounters difficulties in calling 'Mrtrix3'(e.g. executing on Windows) please execute it in command line manually.  
-* The program will generate odf and tck files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' to view them.
+* If the code in 'main.py' encounters difficulties in calling 'MRtrix3'(e.g. executing on Windows) please execute it in command line manually.
+* The program will generate Fiber Orientation Distribution (FOD) and tractography (.tck) files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' toolbar to view them.
 
 
 ![image ](https://github.com/Euyz/CABLE/assets/33593212/e1d11bad-6171-4077-97b4-680b15ebdd21)
