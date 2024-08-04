@@ -1,66 +1,54 @@
 # If you find this code useful in your research, consider cite the following paper:
 # Yue Zhang et al. Whole-brain reconstruction of fiber tracts based on the 3-D cytoarchitectonic organization
-
-import os
-import sys
-
-import numpy as np
-import h5py
-import nibabel as nib
-import cv2
-
 import torch
+import h5py
 import torch.nn.functional as F
+import numpy as np
+import nibabel as nib
+import dataLoader
 import cupyx.scipy.ndimage as filter
 import cupy as cp
+import os
+import sys
 from tqdm import tqdm
+dirs = cp.loadtxt("./45.txt")[1:,:-1].astype(np.float32)
+sigma = 1
+rho = 20
+ratio = 2
+dwi = f'./DWI_sigma_{sigma}_rho_{rho}.nii'
+dwi_denoise = f'./DWI_sigma_{sigma}_rho_{rho}_denoise.nii'
+res = f'./response.nii'
+fod = f'./FOD_sigma_{sigma}_rho_{rho}.nii'
+dir_file = f'./45.txt'
 
-import dataLoader
 
-def split(data, pad, block, roi = None):
+def split(block_size, shape, unit):
     """
     @param
-    pad   : padding to block, e.g. 20
     block : block size, e.g. 200x200x200
-    roi   : e.g. nii_roi [0, 2176, 0, 232, 0, 2112]
+    shape : image shape, e.g. 2000x2000x2000
+    unit  : ODF size, e.g. 20
     @return
-    pad_index       : list of blocked ROI with padding around covering the large ROI `roi`,
+    ODF_partition   : list of blocked ROI,
                       such as [..., [[0, 220], [180, 232], [0, 220]], ...]
-    effective_index : relative ROI for ODF_Index to pad_index,
-                      such as [..., [[0, 200], [20, 52], [0, 200]], ...]
-    ODF_Index       : list of blocked ROI with no overlap that tile the large ROI,
-                      such as [..., [[0, 200], [200, 232], [0, 200]], ...]
     """
-    pad = pad
-    block = block
-    shape = data.shape
-    if roi is None:
-        roi = [0, shape[2], 0, shape[0], 0, shape[1]]
-    flag = [[i for i in range(roi[j*2], roi[j*2+1], block[j])]
-            for j in range(3)]
-    for i in range(len(flag)):
-        flag[i].append(roi[i*2+1])
-    pad_index = []
-    effective_index = []
-    ODF_Index = []
-    for i in range(len(flag[0]) -1):
-        for j in range(len(flag[1]) -1):
-            for k in range(len(flag[2])-1 ):
-                xl = max(flag[0][i] - pad, 0)
-                xr = min(flag[0][i + 1] + pad, roi[1])
-                yl = max(flag[1][j] - pad, 0)
-                yr = min(flag[1][j + 1] + pad, roi[3])
-                zl = max(flag[2][k] - pad, 0)
-                zr = min(flag[2][k + 1] + pad, roi[5])
-                ODF_Index.append(
-                    [[flag[0][i], flag[0][i + 1]],
-                     [flag[1][j], flag[1][j + 1]],
-                     [flag[2][k], flag[2][k + 1]]])
-                pad_index.append([[xl, xr], [yl, yr], [zl, zr]])
-                effective_index.append([[flag[0][i] - xl, flag[0][i + 1] - xl],
-                                        [flag[1][j] - yl, flag[1][j + 1] - yl],
-                                        [flag[2][k] - zl, flag[2][k + 1] - zl]])
-    return pad_index, effective_index, ODF_Index
+    flags = [
+        [i for i in range(shape[2 * j], shape[2 * j + 1] + 1, block_size[j])]
+        for j in range(3)
+    ]
+    for i in range(3):
+        if flags[i][-1] != shape[2 * i + 1]:
+            flags[i].append(shape[2 * i + 1] - (shape[2 * i + 1] % unit))
+    ODF_partition = []
+    for i in range(len(flags[0]) - 1):
+        for j in range(len(flags[1]) - 1):
+            for k in range(len(flags[2]) - 1):
+                ODF_partition.append([
+                    [flags[0][i], flags[0][i + 1]],
+                    [flags[1][j], flags[1][j + 1]],
+                    [flags[2][k], flags[2][k + 1]]
+                ])
+    return ODF_partition
 
 def grad(temp, sigma, ratio):
     """compute grad of the image, with gaussian filter"""
@@ -110,37 +98,23 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     # directions of "gradient field". lmax=8 <=> 45 directions
     field_dirs = cp.loadtxt("./45.txt")[1:,:-1].astype(np.float32)
 
-    padded_index, effective_index, ODF_Index = split(
-        img, 1 * rho, [10 * rho, 10 *  rho, 10 * rho], nii_roi)
-    dataSet = dataLoader.CustomIMSDataset(padded_index, effective_index, ODF_Index, img3d_path)
+    ODF_partition = split([10 * rho, 10 * rho, 10 * rho], nii_roi, rho)
+    dataSet = dataLoader.CustomIMSDataset(ODF_partition,img3d_path)
     dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=10, pin_memory=True)
-    ker1d = torch.tensor(cv2.getGaussianKernel(
-            rho//ratio + 1, rho//ratio*10, cv2.CV_32F)[:, 0]).cuda(0)
-    i = 0
+    ker1d = torch.ones(rho//ratio).cuda(0)/(rho//ratio)
+
     for batch in tqdm(dataloader, colour = 'GREEN'):
         # get blocked image
         roi = cp.asarray(batch[0][0])
-        flag = cp.asarray(batch[1][0])[::ratio, ::ratio,::ratio]
-
         # get smoothed gradient
         Vx, Vy, Vz = grad(roi, sigma, ratio)
-        Vx[flag] = 0
-        Vy[flag] = 0
-        Vz[flag] = 0
         r = cp.stack((Vx, Vy, Vz), axis=-1)
         # get simulated directional response
         x = psf(r, field_dirs, 100)
-        # smooth the response and down sampling to resolution `rho`
         x = torch.as_tensor(x[None, ...].transpose([4, 0, 1, 2, 3])).cuda()
-        x = F.conv3d(x, ker1d[None, None, None, None, :],
-                     padding=(0, 0, ker1d.shape[0] // 2),
-                     stride=[1, 1, rho // ratio])
-        x = F.conv3d(x, ker1d[None, None, None, :, None],
-                     padding=(0, ker1d.shape[0] // 2, 0),
-                     stride=[1, rho // ratio, 1])
-        x = F.conv3d(x, ker1d[None, None, :, None, None],
-                     padding=(ker1d.shape[0] // 2, 0, 0),
-                     stride=[rho // ratio, 1, 1])
+        x = F.conv3d(x, ker1d[None, None, None, None, :], stride=[1, 1, rho // ratio])
+        x = F.conv3d(x, ker1d[None, None, None, :, None], stride=[1, rho // ratio, 1])
+        x = F.conv3d(x, ker1d[None, None, :, None, None], stride=[rho // ratio, 1, 1])
         x = cp.array(x[..., None].transpose(0, -1)[0][0])
         cp.nan_to_num(x, 0)
         # add 0-th component
@@ -148,15 +122,10 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
         x[..., 0] = cp.where(x[..., 0]>0.2, 1, 0)
         x = x.get()
         # write the tile (block) to result array
-        odf = ODF_Index[i]
-        eff = effective_index[i]
-        ODF_Data[(odf[0][0]-nii_roi[0]) // rho : (odf[0][1]-nii_roi[0]) // rho,
-                 (odf[1][0]-nii_roi[2]) // rho : (odf[1][1]-nii_roi[2]) // rho,
-                 (odf[2][0]-nii_roi[4]) // rho : (odf[2][1]-nii_roi[4]) // rho] = \
-            x[eff[0][0] // rho : eff[0][1] // rho,
-              eff[1][0] // rho : eff[1][1] // rho,
-              eff[2][0] // rho : eff[2][1] // rho]
-        i += 1
+        ODF_block = batch[1]
+        ODF_Data[(ODF_block[0][0] - nii_roi[0]) // rho:(ODF_block[0][1] - nii_roi[0]) // rho,
+        (ODF_block[1][0] - nii_roi[2]) // rho:(ODF_block[1][1] - nii_roi[2]) // rho,
+        (ODF_block[2][0] - nii_roi[4]) // rho:(ODF_block[2][1] - nii_roi[4]) // rho] = x
 
     out = makeNiiForMRView(rho, ODF_Data)
     nib.save(out, dwi_path)
@@ -199,7 +168,7 @@ def ComputeCABLE(img3d_path, cable_params):
     return res_path_set
 
 def main():
-    img3d_path = sys.argv[1]
+    img3d_path = 'CJ4TEST.h5'
     cable_params = {
         # smooth parameter for gradient
         'sigma': 1,
