@@ -1,26 +1,20 @@
 # If you find this code useful in your research, consider cite the following paper:
 # Yue Zhang et al. Whole-brain reconstruction of fiber tracts based on the 3-D cytoarchitectonic organization
-import torch
-import h5py
-import torch.nn.functional as F
-import numpy as np
-import nibabel as nib
-import dataLoader
-import cupyx.scipy.ndimage as filter
-import cupy as cp
 import os
 import sys
-from tqdm import tqdm
-dirs = cp.loadtxt("./45.txt")[1:,:-1].astype(np.float32)
-sigma = 1
-rho = 20
-ratio = 2
-dwi = f'./DWI_sigma_{sigma}_rho_{rho}.nii'
-dwi_denoise = f'./DWI_sigma_{sigma}_rho_{rho}_denoise.nii'
-res = f'./response.nii'
-fod = f'./FOD_sigma_{sigma}_rho_{rho}.nii'
-dir_file = f'./45.txt'
 
+import numpy as np
+import h5py
+import nibabel as nib
+import cv2
+
+import torch
+import torch.nn.functional as F
+import cupyx.scipy.ndimage as filter
+import cupy as cp
+from tqdm import tqdm
+
+import dataLoader
 
 def split(block_size, shape, unit):
     """
