@@ -142,7 +142,7 @@ def ODFProcessing(dwi_path, cable_params, fod_path, mask_path, tck_path):
               f'-lmax 12 -shells 1000 -force')
     os.system(f'dwi2mask "{dwi_path}" "{mask_path}" -grad "{dir_path}" -force')
     os.system(f'tckgen -seed_image "{mask_path}" "{fod_path}" "{tck_path}" -select {n_tck_sample} '
-              f'-power 2 -cutoff 0.01 -force -minlength 0.01 -maxlength 100000 -force')
+              f'-power 2 -cutoff 0.1 -force -minlength 0.01 -maxlength 100000 -force')
 
 def ComputeCABLE(img3d_path, cable_params):
     sigma = cable_params['sigma']
