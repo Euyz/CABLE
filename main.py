@@ -24,7 +24,7 @@ def split(block_size, shape, unit):
     unit  : ODF size, e.g. 20
     @return
     ODF_partition   : list of blocked ROI,
-                      such as [..., [[0, 220], [180, 232], [0, 220]], ...]
+                      such as [..., [[0, 200], [0, 200], [0, 200]], ...]
     """
     flags = [
         [i for i in range(shape[2 * j], shape[2 * j + 1] + 1, block_size[j])]
