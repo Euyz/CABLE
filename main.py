@@ -137,7 +137,7 @@ def ODFProcessing(dwi_path, cable_params, fod_path, mask_path, tck_path):
     dir_path     = cable_params['dir_path']
 
     # os.system(f'dwi2response tax {dwi_path}  {res_path}  -grad {dir_path}  -force')
-    os.system(f'mrfilter "{dwi_path}" smooth -stdev 0.06,0.06,0.06 "{dwi_path}" -force')
+    os.system(f'mrfilter "{dwi_path}" smooth -stdev 0.04,0.04,0.04 "{dwi_path}" -force')
     os.system(f'dwi2fod msmt_csd "{dwi_path}" "{res_path}" "{fod_path}" -grad "{dir_path}" '
               f'-lmax 12 -shells 1000 -force')
     os.system(f'dwi2mask "{dwi_path}" "{mask_path}" -grad "{dir_path}" -force')
