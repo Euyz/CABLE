@@ -4,11 +4,10 @@ import numpy as np
 import h5py
 
 class CustomIMSDataset(Dataset):
-    def __init__(self, ODF_partition, data, z0=0):
+    def __init__(self, ODF_partition, data):
         self.ODF_partition=ODF_partition
         self.data=data
         self.open_hdf5()
-        self.z0=z0
         # self.flag=np.zeros(self.data.shape,dtype=bool)
         # self.flag[0::75]=True
         # self.flag[1::75] = True
