@@ -5,9 +5,11 @@ pip install -r requirements.txt
 ```
 
 ## Example data and usage.  
-
+# Example data
 * The example data 'CJ4TEST.h5' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
-
+# OS
+* It is recommended to run this program under Linux.
+  
 * We use 'Mrtrix3' for estimating response function(or use response.nii in this repository directly) and constrained spherical deconvolution(CSD), which can be accessed via 'https://www.mrtrix.org/download/'.  
 
 * After installing 'Mrtrix3', execute the python file:
