@@ -5,7 +5,6 @@ pip install -r requirements.txt
 ```
 
 ## Example data and usage.  
-* It is recommended to run this program under Linux.
 
 * The example data 'CJ4TEST.h5' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 
