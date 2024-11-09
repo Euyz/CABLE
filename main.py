@@ -31,7 +31,7 @@ def split(block_size, shape, unit):
         for j in range(3)
     ]
     for i in range(3):
-        if flags[i][-1] != shape[2 * i + 1]:
+        if flags[i][-1] != shape[2 * i + 1] - ((shape[2 * i + 1]- shape[2 * i ]) % unit):
             flags[i].append(shape[2 * i + 1] - ((shape[2 * i + 1]- shape[2 * i ]) % unit))
     ODF_partition = []
     for i in range(len(flags[0]) - 1):
