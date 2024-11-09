@@ -3,6 +3,7 @@ Code dependencies are in 'requirement.txt'.
 ```sh
 pip install -r requirements.txt
 ```
+The code uses calls to the GPU to accelerate the computation, if using the CPU, change cupy to numpy.
 
 ## Example data and usage.  
 ### Example data
