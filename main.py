@@ -162,7 +162,7 @@ def ComputeCABLE(img3d_path, cable_params):
     return res_path_set
 
 def main():
-    img3d_path = 'CJ4TEST.h5'
+    img3d_path = sys.argv[1]
     cable_params = {
         # smooth parameter for gradient
         'sigma': 1,
