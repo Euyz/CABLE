@@ -73,7 +73,7 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
 
     # load 3D image
     h5 = h5py.File(img3d_path, 'r')
-    img = h5['DataSet']['ResolutionLevel 2']['TimePoint 0']['Channel 1']['Data']
+    img = h5['DataSet']['ResolutionLevel 0']['TimePoint 0']['Channel 0']['Data']
     ims_roi = [0, img.shape[0],
                0, img.shape[1],
                0, img.shape[2]]
