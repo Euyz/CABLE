@@ -34,7 +34,7 @@ class CustomIMSDataset(Dataset):
 
     def open_hdf5(self):
         self.img_hdf5 = h5py.File(self.data, 'r')
-        self.data = self.img_hdf5['DataSet']['ResolutionLevel 2']['TimePoint 0']['Channel 1']['Data']
+        self.data = self.img_hdf5['DataSet']['ResolutionLevel 0']['TimePoint 0']['Channel 0']['Data']
 
     def __getitem__(self, i):
         if not hasattr(self, 'img_hdf5'):
