@@ -13,7 +13,7 @@ The code uses GPU to accelerate the computation, if using CPU, please change cup
 ### Usage
 * We use 'Mrtrix3' for estimating response function(or use response.nii in this repository directly) and constrained spherical deconvolution(CSD), which can be accessed via 'https://www.mrtrix.org/download/'.  
 
-* After installing 'Mrtrix3' and downloading 'CJ4ROI.ims', execute the python file:
+* After installing “Mrtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
 
 ```sh
 python main.py CJ4TEST.h5
