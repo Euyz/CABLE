@@ -62,8 +62,8 @@ def psf(gradient, field_dirs, index):
     """
     gradient_norm = np.linalg.norm(gradient, axis=-1)[...,None]
     gradient = np.nan_to_num(gradient / gradient_norm)
-    o = gradient @ field_dirs.T
-    return o ** index * gradient_norm
+    x = gradient @ field_dirs.T
+    return x ** index * gradient_norm
 
 def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     sigma = cable_params['sigma']
