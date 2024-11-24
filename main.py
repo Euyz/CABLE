@@ -77,9 +77,6 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     ims_roi = [0, img.shape[0],
                0, img.shape[1],
                0, img.shape[2]]
-    #ims_roi = [0, 200,
-    #           500, 800,
-    #           500, 800]
     nii_roi = [img.shape[2]-ims_roi[5], img.shape[2]-ims_roi[4],
                img.shape[0]-ims_roi[1], img.shape[0]-ims_roi[0],
                img.shape[1]-ims_roi[3], img.shape[1]-ims_roi[2]]
@@ -88,10 +85,8 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
                          (nii_roi[3]-nii_roi[2]) // rho,
                          (nii_roi[5]-nii_roi[4]) // rho, 46], dtype=np.float32)
     print(f'Result GWF image size: {ODF_Data.shape}')
-
     # directions of "gradient field". lmax=8 <=> 45 directions
     field_dirs = cp.loadtxt("./45.txt")[1:,:-1].astype(np.float32)
-
     ODF_partition = split([10 * rho, 10 * rho, 10 * rho], nii_roi, rho)
     dataSet = dataLoader.CustomIMSDataset(ODF_partition,img3d_path)
     dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=10, pin_memory=True)
