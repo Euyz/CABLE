@@ -2,7 +2,5 @@ cupy
 h5py
 nibabel
 numpy
-opencv_python
-opencv_python_headless
 torch
 tqdm
