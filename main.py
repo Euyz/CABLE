@@ -58,7 +58,7 @@ def psf(gradient, field_dirs, index):
     For each gradient of the image, project it to predefined directions and adjust it 
     so that only the aligned direction has a large value.
         (r / ||r|| @ direction) ** index * ||r||
-    Conceptually simulate the convolultion of the gradient with a sharp PSF.
+    Conceptually simulate the convolution of the gradient with a sharp PSF.
     """
     gradient_norm = np.linalg.norm(gradient, axis=-1)[...,None]
     gradient = np.nan_to_num(gradient / gradient_norm)
