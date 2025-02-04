@@ -1,4 +1,4 @@
-cupy
+cupy-cuda12x
 h5py
 nibabel
 numpy
