@@ -1,10 +1,3 @@
-## Code dependencies.  
-Code dependencies are in 'requirement.txt'.  
-```sh
-pip install -r requirements.txt
-```
-The code uses GPU to accelerate the computation, if using CPU, please change cupy to numpy and remove the part where pytorch calls cuda.
-
 ## Example data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 ## Software requirements
@@ -25,6 +18,12 @@ First, enter the command ```wsl --install``` in the Windows terminal. This comma
 Then, use the command ```sudo apt-get install mrtrix3``` in the Ubuntu subsystem to install MRtrix3.
 * Installation via msys2:\
 Alternatively, you can refer to the official MRtrix3 documentation at https://www.mrtrix.org/download/windows-msys2/ and install it using msys2. In this case, the call to MRtrix3 within **main.py** needs to be executed manually.
+## Code dependencies.  
+Code dependencies are in 'requirement.txt'.  
+```sh
+pip install -r requirements.txt
+```
+The code uses GPU to accelerate the computation, if using CPU, please change cupy to numpy and remove the part where pytorch calls cuda.
 
 ## Usage
 * After installing “MRtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
