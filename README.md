@@ -8,6 +8,7 @@ The code uses GPU to accelerate the computation, if using CPU, please change cup
 ## Example data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 ## Software requirements
+This project depends on MRtrix3. Here are the installation methods for different operating systems:
 ### Linux
 * You can install MRtrix3 using conda:
 ```sh
