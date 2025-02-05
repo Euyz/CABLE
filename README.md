@@ -7,7 +7,7 @@ This project depends on MRtrix3. Here are the installation methods for different
 ```sh
 conda install -c mrtrix3 mrtrix3
 ```
-* For Ubuntu, you can also use the following command to install MRtrix3:
+* For Ubuntu, it is convenient to install MRtrix3 by:
 ```sh
 sudo apt-get install mrtrix3
 ```
