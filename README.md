@@ -14,7 +14,7 @@ sudo apt-get install mrtrix3
 ### Windows
 * Installation via **Windows Subsystem for Linux 2 (WSL2)**:\
 We recommend installing MRtrix3 under WSL2 which provides excellent support for GUI programs.\
-First, enter the command ```wsl --install``` in the Windows terminal. This command will automatically install the default Ubuntu distribution of the Linux subsystem. After the installation is complete, find the newly installed Ubuntu in the Start menu and open it.
+First, enter the command ```wsl --install``` in the Windows terminal. This command will automatically install the default Ubuntu distribution of the Linux subsystem. 
 Then, use the command ```sudo apt-get install mrtrix3``` in the Ubuntu subsystem to install MRtrix3.
 * Installation via msys2:\
 Alternatively, you can refer to the official MRtrix3 documentation at https://www.mrtrix.org/download/windows-msys2/ and install it using msys2. In this case, the call to MRtrix3 within **main.py** needs to be executed manually.
