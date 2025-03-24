@@ -1,5 +1,6 @@
 ## Example data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
+#Installation
 ## Software requirements
 This project depends on MRtrix3. Here are the installation methods for different operating systems:
 ### Linux
@@ -25,11 +26,11 @@ pip install -r requirements.txt
 ```
 The code uses GPU to accelerate the computation, if using CPU, please change cupy to numpy and remove the part where pytorch calls cuda.
 
-## Usage
+# Usage
 * After installing “MRtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
 
 ```sh
-python main.py CJ4TEST.h5
+python main.py CJ4TEST.ims
 ```
 * The program will generate Fiber Orientation Distribution (FOD) and tractography (.tck) files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' toolbar to view them.
 ## Docker
