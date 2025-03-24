@@ -2,7 +2,7 @@
 # Yue Zhang et al. Whole-brain reconstruction of fiber tracts based on the 3-D cytoarchitectonic organization
 import os
 import sys
-
+import utils.dataLoader as dataLoader
 import numpy as np
 import h5py
 import nibabel as nib
@@ -13,7 +13,7 @@ import cupyx.scipy.ndimage as filter
 import cupy as cp
 from tqdm import tqdm
 
-import dataLoader
+
 
 def split(block_size, shape, unit):
     """
@@ -69,7 +69,7 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     sigma = cable_params['sigma']
     rho = cable_params['rho']
     ratio = cable_params['ratio']
-
+    dirs = cable_params['dir_path']
     # load 3D image
     h5 = h5py.File(img3d_path, 'r')
     img = h5['DataSet']['ResolutionLevel 0']['TimePoint 0']['Channel 0']['Data']
@@ -85,7 +85,7 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
                          (nii_roi[5]-nii_roi[4]) // rho, 46], dtype=np.float32)
     print(f'Result GWF image size: {ODF_Data.shape}')
     # directions of "gradient field". lmax=8 <=> 45 directions
-    field_dirs = cp.loadtxt("./45.txt")[1:,:-1].astype(np.float32)
+    field_dirs = cp.loadtxt(dirs)[1:,:-1].astype(np.float32)
     ODF_partition = split([10 * rho, 10 * rho, 10 * rho], nii_roi, rho)
     dataSet = dataLoader.CustomIMSDataset(ODF_partition,img3d_path)
     dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=10, pin_memory=True)
@@ -165,11 +165,11 @@ def main():
         # downsample ratio, i.e. step size for gradient computaion
         'ratio': 2,
         'n_tck_sample': 10000,
-        'dir_path': './45.txt',
-        'response_path': './response.nii',
+        'dir_path': './utils/45.txt',
+        'response_path': './utils/response.nii',
     }
     res_path_set = ComputeCABLE(img3d_path, cable_params)
-    # visulize the results
+    # visualize the results
     dwi_path = res_path_set['dwi_path']
     tck_path = res_path_set['tck_path']
     os.system(f'mrview "{dwi_path}" -imagevisible false -tractography.load "{tck_path}"')
