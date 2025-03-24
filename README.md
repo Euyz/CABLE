@@ -30,7 +30,7 @@ The code uses GPU to accelerate the computation, if using CPU, please change cup
 * After installing “MRtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
 
 ```sh
-python main.py CJ4TEST.ims
+python main.py CJ4ROI.ims
 ```
 * The program will generate Fiber Orientation Distribution (FOD) and tractography (.tck) files which can be viewed with 'mrview' in 'Mrtrix3', use 'ODF Display' and 'Tractography' in 'Tools' toolbar to view them.
 ## Docker
