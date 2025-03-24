@@ -28,12 +28,13 @@ Code dependencies are in 'requirement.txt'.
 ```sh
 pip install -r requirements.txt
 ```
+The code uses GPU to accelerate the computation, if using CPU, please change cupy to numpy and remove the part where pytorch calls cuda.
 ## Docker
 We also provide a Docker image that contains all the dependencies for the project to run with the following command:
 ```sh
 docker run -it unrealz/cable
 ```
-The code uses GPU to accelerate the computation, if using CPU, please change cupy to numpy and remove the part where pytorch calls cuda.
+
 
 # Usage
 * After installing “MRtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
