@@ -1,4 +1,4 @@
-## Example data 
+# Example raw data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 # Installation
 ### Software requirements
