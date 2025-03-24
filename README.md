@@ -1,6 +1,9 @@
 # Example raw data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 # Installation
+## Hardware requirements
+* NVIDIA CUDA GPU with CUDA Toolkit v12x
+
 ## Software requirements
 This project depends on MRtrix3. Here are the installation methods for different operating systems:
 #### Linux
