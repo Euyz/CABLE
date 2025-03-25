@@ -1,5 +1,6 @@
 # Overview
-This repository implements the cytoarchitecture-based link estimation (CABLE) algorithm. Using whole-brain 3D fluorescence imaging, we developed the CABLE method for accurate fiber tract mapping at cellular resolution. This method infers the fiber direction from the inherent anisotropy of the nucleus/soma shape and spatial arrangement of adjacent cells. It employs the spherical deconvolution algorithm to analyze three-dimensional images of cell staining and generate the Orientation Distribution Function (ODF). 
+This repository implements the cytoarchitecture-based link estimation (CABLE) algorithm.\
+Using whole-brain 3D fluorescence imaging, we developed the CABLE method for accurate fiber tract mapping at cellular resolution. This method infers the fiber direction from the inherent anisotropy of the nucleus/soma shape and spatial arrangement of adjacent cells. It employs the spherical deconvolution algorithm to analyze three-dimensional images of cell staining and generate the Orientation Distribution Function (ODF). 
 # Example raw data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 # Installation
