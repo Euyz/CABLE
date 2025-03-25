@@ -217,4 +217,9 @@ def main():
     }
     res_path_set = ComputeCABLE(img3d_path, cable_params)
     # Visualize the results using an external MR viewer
-    dwi_path = res_path_set['dwi_
+    dwi_path = res_path_set['dwi_path']
+    tck_path = res_path_set['tck_path']
+    os.system(f'mrview "{dwi_path}" -imagevisible false -tractography.load "{tck_path}"')
+
+if __name__ == '__main__':
+    main()
