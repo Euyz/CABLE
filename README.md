@@ -31,7 +31,7 @@ Code dependencies are in 'requirement.txt'.
 ```sh
 pip install -r requirements.txt
 ```
-The code uses GPU to accelerate the computation, if using CPU, please use "main_cpu.py".
+The code uses GPU to accelerate the computation, if using CPU, please refer to the “main_cpu.py” file.
 ## Docker
 We also provide a Docker image that contains all the dependencies for the project to run with the following command:
 ```sh
