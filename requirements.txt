@@ -4,3 +4,4 @@ nibabel
 numpy
 torch
 tqdm
+scipy
