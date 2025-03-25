@@ -1,3 +1,5 @@
+# Overview
+Using whole-brain ultrahigh-throughput fluorescence imaging, we developed a cytoarchitecture-based link estimation (CABLE) method for accurate fiber tract mapping at cellular resolution. This method infers the fiber direction from the inherent anisotropy of the nucleus/soma shape and spatial arrangement of adjacent cells.
 # Example raw data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 # Installation
