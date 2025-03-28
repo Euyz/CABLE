@@ -88,7 +88,7 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     field_dirs = cp.loadtxt(dirs)[1:,:-1].astype(np.float32)
     ODF_partition = split([10 * rho, 10 * rho, 10 * rho], nii_roi, rho)
     dataSet = dataLoader.CustomIMSDataset(ODF_partition,img3d_path)
-    dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=10, pin_memory=True)
+    dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=0, pin_memory=True)
     ker1d = torch.ones(rho//ratio).cuda(0)/(rho//ratio)
 
     for batch in tqdm(dataloader, colour = 'GREEN'):
