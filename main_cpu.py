@@ -105,7 +105,7 @@ def GradientWeightedFunction(img3d_path, cable_params, dwi_path):
     
     # Create the dataset and dataloader for processing image blocks
     dataSet = dataLoader.CustomIMSDataset(ODF_partition, img3d_path)
-    dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=10, pin_memory=True)
+    dataloader = dataLoader.DataLoader(dataSet, batch_size=1, num_workers=0, pin_memory=True)
     
     # Construct a 1D averaging kernel
     ker1d = torch.ones(rho // ratio) / (rho // ratio)
