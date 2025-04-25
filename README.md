@@ -29,7 +29,6 @@ Code dependencies are in 'requirement.txt'.
 ```sh
 pip install -r requirements.txt
 ```
-The code uses GPU to accelerate the computation, if using CPU, please refer to the “main_cpu.py” file.
 ### (Optional) Asymmetric ODF filtering
 If you want to perform asymmetric ODF filtering, a well - implemented toolkit (repository) can be directly applied to the cODF (https://github.com/CHrlS98/aodf - toolkit). It's important to note that currently, MRtrix3 does not support asymmetric ODF. Therefore, other visualization methods may be required, such as FSLeyes (see https://open.win.ox.ac.uk/pages/fsl/fsleyes/fsleyes/userdoc/).
 ## Docker
