@@ -46,10 +46,7 @@ docker run -it -v /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix `
                 -e PULSE_SERVER=/mnt/wslg/PulseServer `
                 cable python main.py CJ4ROI.ims
 ```
-GPU version:
-```sh
-docker run --gpus all -it --rm -e DISPLAY=host.docker.internal:0  lets-cn-beijing.cr.volces.com/x-team/cable:v1.1 python3 main.py CJ4ROI.ims
-```
+
 
 # Usage
 * After installing “MRtrix3” and downloading “CJ4ROI.ims”, place “CJ4ROI.ims” in the same folder as the code under this repository and execute the python file
