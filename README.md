@@ -6,7 +6,7 @@ Using whole-brain 3D fluorescence imaging, we developed the CABLE method for acc
 # Installation
 
 ## Software requirements
-This project depends on MRtrix3. Here are the installation methods for different operating systems:
+This project depends on MRtrix3. Here are the installation methods for Linux and Windows:
 #### Linux
 * You can install MRtrix3 using conda:
 ```sh
