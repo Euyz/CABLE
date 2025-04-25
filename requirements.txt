@@ -1,7 +1,0 @@
-cupy-cuda12x
-h5py
-nibabel
-numpy
-torch
-tqdm
-scipy
