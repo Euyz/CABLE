@@ -1,7 +1,0 @@
-cupy
-h5py
-nibabel
-numpy
-torch
-tqdm
-scipy
