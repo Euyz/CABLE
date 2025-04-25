@@ -4,8 +4,6 @@ Using whole-brain 3D fluorescence imaging, we developed the CABLE method for acc
 # Example raw data 
 * The example data 'CJ4ROI.ims' can be accessed via [http://cable.bigconnectome.org](http://cable.bigconnectome.org).
 # Installation
-## Hardware requirements
-* NVIDIA CUDA GPU with CUDA Toolkit v12x
 
 ## Software requirements
 This project depends on MRtrix3. Here are the installation methods for different operating systems:
@@ -37,7 +35,17 @@ If you want to perform asymmetric ODF filtering, a well - implemented toolkit (r
 ## Docker
 We also provide a Docker image that contains all the dependencies for the project to run with the following command:
 ```sh
-docker run -it unrealz/cable
+docker pull unrealz/cable
+```
+For WSL2-based Docker Desktop users, use the following command to execute and display:
+```sh
+docker run -it -v /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix `
+                -v /run/desktop/mnt/host/wslg:/mnt/wslg `
+                -e DISPLAY=:0 `
+                -e WAYLAND_DISPLAY=wayland-0 `
+                -e XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir `
+                -e PULSE_SERVER=/mnt/wslg/PulseServer `
+                cable python main.py CJ4ROI.ims
 ```
 
 
