@@ -5,3 +5,4 @@ numpy
 torch
 tqdm
 scipy
+dipy
